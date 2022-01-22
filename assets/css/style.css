@@ -63,16 +63,22 @@ main {
 
 .current-city {
   border: solid rgb(38, 38, 104);
-  height: 250px;
+  height: 160px;
   margin-bottom: 5px;
 }
 
-.five-day-forcast {
-  border: solid rgb(38, 38, 104);
+.five-day-forecast {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   height: 250px;
   margin-top: 5px;
 }
-
+.five-day-forecast div {
+  background-color: rgba(27, 126, 255, 0.438);
+  height: 200px;
+  flex-basis: 15%;
+}
 .history button {
   margin-bottom: 5px;
   margin-top: 5px;
@@ -80,7 +86,12 @@ main {
   background-color: lightgrey;
 }
 
-.current-city p, h3 {
+.current-city p, h2, .five-day-forecast h2 {
   padding-left: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  color: rgb(38, 38, 104)
+}
+
+.five-day-forecast h2 {
+  flex-basis: 100%;
 }
