@@ -24,10 +24,15 @@ main {
   justify-content: space-between;
 }
 
-.card {
+.card,
+.history {
   display: flex;
   flex-flow: column wrap;
-  flex-grow:1;
+  flex-grow: 1;
+}
+
+.history {
+  border-top: solid gray;
 }
 
 .card label {
@@ -49,8 +54,26 @@ main {
 }
 
 .city-display {
-    border: solid blue;
-    margin: 10px;
-    flex-grow: 30;
-    height: 300px
+  margin: 10px;
+  flex-grow: 30;
+  height: 500px;
+}
+
+.current-city {
+  border: solid rgb(38, 38, 104);
+  height: 250px;
+  margin-bottom: 5px;
+}
+
+.five-day-forcast {
+  border: solid rgb(38, 38, 104);
+  height: 250px;
+  margin-top: 5px;
+}
+
+.history button {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  height: 30px;
+  background-color: lightgrey;
 }
