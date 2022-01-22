@@ -10,11 +10,13 @@ body {
 
 header {
   background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);
+  height: 60px;
 }
 
 header h1 {
   text-align: center;
   color: rgb(38, 38, 104);
+  padding-top: 10px;
 }
 
 main {
@@ -76,4 +78,9 @@ main {
   margin-top: 5px;
   height: 30px;
   background-color: lightgrey;
+}
+
+.current-city p, h3 {
+  padding-left: 5px;
+  margin-bottom: 5px;
 }
