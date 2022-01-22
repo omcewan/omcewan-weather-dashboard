@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(155, 208, 255);
+}
+
+header {
+  background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);
+}
+
+header h1 {
+  text-align: center;
+  color: rgb(38, 38, 104);
+}
+
+main {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 10px;
+  justify-content: space-between;
+}
+
+.card {
+  display: flex;
+  flex-flow: column wrap;
+  flex-grow:1;
+}
+
+.card label {
+  color: rgb(38, 38, 104);
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.card input {
+  border-radius: 2%;
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+.card button {
+  margin-bottom: 5px;
+  height: 30px;
+  background-color: #7ee8fa;
+}
+
+.city-display {
+    border: solid blue;
+    margin: 10px;
+    flex-grow: 30;
+    height: 300px
+}
