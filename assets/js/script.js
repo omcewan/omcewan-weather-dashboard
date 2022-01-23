@@ -27,7 +27,7 @@ function getWeatherInfo(latitude, longitude) {
     "&exclude=minutely,hourly,alerts&units=imperial&appid=f4d4536da514f2ce7b14e71927f09061";
   fetch(cityWeatherApi).then((response) => {
     response.json().then((data) => {
-      console.log(data);
+    //   console.log(data);
       currentCityEl.innerHTML = "<h2>" + searchCity + " " + currentDate;
       currentCityEl.innerHTML += "<p> Temp: " + data.current.temp + "℉";
       currentCityEl.innerHTML +=
@@ -37,8 +37,13 @@ function getWeatherInfo(latitude, longitude) {
       currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + data.current.uvi;
       fiveDayForcastEl.innerHTML += "<h2> 5-Day Forecast:";
       for (let i = 0; i < 5; i++) {
-        fiveDayForcastEl.innerHTML += `<div data-day-id=${i}>`;
-        console.log(data.daily[i]);
+        fiveDayForcastEl.innerHTML += `<div id=${i}>`;
+      }
+      for (let j = 0; j < 5; j++) {
+        document.getElementById(j).innerHTML ="<h3>" + moment().add(j+1, "day").format("(M/D/YYYY)");
+        document.getElementById(j).innerHTML += "<p> Temp: " + data.daily[j].temp.day + "℉"
+        document.getElementById(j).innerHTML += "<p> Humidity: " + data.daily[j].humidity + " %"
+        document.getElementById(j).innerHTML += "<p> Wind: " + data.daily[j].wind_speed + " MPH"
       }
     });
   });
@@ -53,14 +58,14 @@ function setSearchCityValue() {
 }
 
 function displayWeather() {
-    while (fiveDayForcastEl.firstChild) {
-        fiveDayForcastEl.removeChild(fiveDayForcastEl.firstChild)
-    }
-    while (currentCityEl.firstChild) {
-        currentCityEl.removeChild(currentCityEl.firstChild)
-    }
-    setSearchCityValue();
-    getLatLon(searchCity);
+  while (fiveDayForcastEl.firstChild) {
+    fiveDayForcastEl.removeChild(fiveDayForcastEl.firstChild);
+  }
+  while (currentCityEl.firstChild) {
+    currentCityEl.removeChild(currentCityEl.firstChild);
+  }
+  setSearchCityValue();
+  getLatLon(searchCity);
 }
 
 submitBtn.addEventListener("click", displayWeather);
