@@ -2,6 +2,7 @@ var inputEl = document.getElementById("city");
 var submitBtn = document.getElementById("submit-search");
 var currentCityEl = document.querySelector(".current-city");
 var fiveDayForcastEl = document.querySelector(".five-day-forecast");
+var historyEl = document.querySelector(".history");
 var latitude;
 var longitude;
 var searchCity;
@@ -20,10 +21,20 @@ function savePrevHistory() {
 }
 
 function getPrevHistory() {
-    localStorageData = JSON.parse(localStorage.getItem("prevCities"));
+    if (localStorage.getItem("prevCities") != null){
+        localStorageData = JSON.parse(localStorage.getItem("prevCities"));
+    }
     console.log(localStorageData);
+    loadPrevHistory();
+    prevWeatherCities = localStorageData;
 }
 getPrevHistory();
+
+function loadPrevHistory() {
+    localStorageData.forEach((element) => {
+        historyEl.innerHTML += "<button type='button'>" + element
+    })
+}
 
 function getLatLon() {
   var latLonApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity},US&limit=1&appid=f4d4536da514f2ce7b14e71927f09061`;
@@ -35,6 +46,7 @@ function getLatLon() {
       searchCity = data[0].name;
       getWeatherInfo(latitude, longitude);
       savePrevHistory(searchCity);
+      loadPrevHistory();
     });
   });
 }
@@ -73,11 +85,11 @@ function displayWeather() {
   while (currentCityEl.firstChild) {
     currentCityEl.removeChild(currentCityEl.firstChild);
   }
+  while (historyEl.firstChild) {
+    historyEl.removeChild(historyEl.firstChild);
+  }
   searchCity = inputEl.value.trim();
   getLatLon();
 }
-
-
-
 
 submitBtn.addEventListener("click", displayWeather);
