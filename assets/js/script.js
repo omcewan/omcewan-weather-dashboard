@@ -31,9 +31,11 @@ function getPrevHistory() {
 getPrevHistory();
 
 function loadPrevHistory() {
+    console.log(localStorageData)
   localStorageData.forEach((element) => {
+      console.log(element);
     historyEl.innerHTML +=
-      "<button type='submit' data-city=" + element + ">" + element;
+      `<button type='submit' data-city=${element}>${element}`
   });
 }
 
@@ -78,7 +80,20 @@ function getWeatherInfo(latitude, longitude) {
         "<p> Wind: " + data.current.wind_speed + " MPH";
       currentCityEl.innerHTML +=
         "<p> Humidity: " + data.current.humidity + " %";
-      currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + data.current.uvi;
+        if (data.current.uvi <= 2) {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + "<span style='background-color: green; padding: 2px 10px; border-radius: 10%; color: white'>" + data.current.uvi + "</span>" + "</p>";
+        } else if (2 < data.current.uvi <=5) {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + "<span style='background-color: yellow; padding: 2px 10px; border-radius: 10%; color: white'>" + data.current.uvi + "</span>" + "</p>";
+        } else if (5 < data.current.uvi <=7) {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + "<span style='background-color: orange; padding: 2px 10px; border-radius: 10%; color: white'>" + data.current.uvi + "</span>" + "</p>";
+        } else if (7 < data.current.uvi <=10) {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + "<span style='background-color: red; padding: 2px 10px; border-radius: 10%; color: white'>" + data.current.uvi + "</span>" + "</p>";
+        } else if (10 < data.current.uvi <=11) {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + "<span style='background-color: purple; padding: 2px 10px; border-radius: 10%; color: white'>" + data.current.uvi + "</span>" + "</p>";
+        } else {
+            currentCityEl.innerHTML += "<p id='uvi'> UV Index: " + data.current.uvi + "</p>";
+        }
+    
       fiveDayForcastEl.innerHTML += "<h2> 5-Day Forecast:";
       for (let i = 0; i < 5; i++) {
         fiveDayForcastEl.innerHTML += `<div id=${i}>`;
@@ -119,7 +134,7 @@ function displayHistoryHandler(event) {
   event.preventDefault();
   var city = event.target.getAttribute("data-city");
   if (city) {
-    searchCity = city;
+    searchCity = document.querySelector(`[data-city=${city}]`).innerHTML;
     fiveDayForcastEl.innerHTML = "";
     currentCityEl.innerHTML = "";
     historyEl.innerHTML = "";
