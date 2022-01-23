@@ -45,7 +45,7 @@ function getLatLon() {
     response.json().then((data) => {
       if (data.length === 0) {
         currentCityEl.innerHTML =
-          "<h2>ERROR: This is not a valid city! Please enter a valid city!</h2>";
+          "<h2> ERROR: This is not a valid city! Please enter a valid city!</h2>";
         loadPrevHistory();
       } else {
         // console.log(data);
@@ -127,6 +127,11 @@ function displayWeatherHandler(event) {
   currentCityEl.innerHTML = "";
   historyEl.innerHTML = "";
   searchCity = inputEl.value.trim();
+  if (searchCity == '') {
+    currentCityEl.innerHTML =
+    "<h2>ERROR: Please enter a city!";
+  loadPrevHistory();
+  }
   getLatLon();
 }
 
