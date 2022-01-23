@@ -24,7 +24,7 @@ function getPrevHistory() {
   if (localStorage.getItem("prevCities") != null) {
     localStorageData = JSON.parse(localStorage.getItem("prevCities"));
   }
-//   console.log(localStorageData);
+  //   console.log(localStorageData);
   loadPrevHistory();
   prevWeatherCities = localStorageData;
 }
@@ -43,8 +43,8 @@ function getLatLon() {
     response.json().then((data) => {
       if (data.length === 0) {
         currentCityEl.innerHTML =
-          "<h2>This is not a valid city! Please enter a valid city! </h2>";
-          loadPrevHistory()
+          "<h2>ERROR: This is not a valid city! Please enter a valid city!</h2>";
+        loadPrevHistory();
       } else {
         // console.log(data);
         latitude = data[0].lat;
@@ -62,7 +62,7 @@ function getWeatherInfo(latitude, longitude) {
   var cityWeatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=imperial&appid=f4d4536da514f2ce7b14e71927f09061`;
   fetch(cityWeatherApi).then((response) => {
     response.json().then((data) => {
-    //   console.log(data);
+      //   console.log(data);
       currentCityEl.innerHTML =
         "<h2>" +
         searchCity +
