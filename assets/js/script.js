@@ -6,9 +6,27 @@ var latitude;
 var longitude;
 var searchCity;
 var currentDate = moment().format("(M/D/YYYY)");
+var prevWeatherCities = []
+var localStorageData = []
+
+function savePrevHistory() {
+    if (!prevWeatherCities.includes(searchCity)){
+        prevWeatherCities.push(searchCity);
+    }
+    if (prevWeatherCities.length === 11) {
+        prevWeatherCities.shift();
+    }
+    localStorage.setItem("prevCities", JSON.stringify(prevWeatherCities));
+}
+
+function getPrevHistory() {
+    localStorageData = JSON.parse(localStorage.getItem("prevCities"));
+    console.log(localStorageData);
+}
+getPrevHistory();
 
 function getLatLon() {
-  var latLonApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity},US&limit=1&appid=f4d4536da514f2ce7b14e71927f09061`;
+  var latLonApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity},US&limit=1&appid=f4d4536da514f2ce7b14e71927f09061`;
   fetch(latLonApiUrl).then((response) => {
     response.json().then((data) => {
       console.log(data);
@@ -16,6 +34,7 @@ function getLatLon() {
       longitude = data[0].lon;
       searchCity = data[0].name;
       getWeatherInfo(latitude, longitude);
+      savePrevHistory(searchCity);
     });
   });
 }
@@ -57,5 +76,8 @@ function displayWeather() {
   searchCity = inputEl.value.trim();
   getLatLon();
 }
+
+
+
 
 submitBtn.addEventListener("click", displayWeather);
