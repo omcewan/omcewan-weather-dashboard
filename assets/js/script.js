@@ -32,7 +32,7 @@ getPrevHistory();
 
 function loadPrevHistory() {
     localStorageData.forEach((element) => {
-        historyEl.innerHTML += "<button type='button'>" + element
+        historyEl.innerHTML += "<button type='submit' data-city=" + element + ">" + element
     })
 }
 
@@ -78,18 +78,27 @@ function getWeatherInfo(latitude, longitude) {
   });
 }
 
-function displayWeather() {
-  while (fiveDayForcastEl.firstChild) {
-    fiveDayForcastEl.removeChild(fiveDayForcastEl.firstChild);
-  }
-  while (currentCityEl.firstChild) {
-    currentCityEl.removeChild(currentCityEl.firstChild);
-  }
-  while (historyEl.firstChild) {
-    historyEl.removeChild(historyEl.firstChild);
-  }
+function displayWeatherHandler (event) {
+    event.preventDefault()
+    fiveDayForcastEl.innerHTML = "";
+    currentCityEl.innerHTML = "";
+    historyEl.innerHTML = "";
   searchCity = inputEl.value.trim();
   getLatLon();
 }
 
-submitBtn.addEventListener("click", displayWeather);
+function displayHistoryHandler(event) {
+    event.preventDefault()
+    var city = event.target.getAttribute("data-city")
+    if(city) {
+        searchCity = city
+        fiveDayForcastEl.innerHTML = "";
+        currentCityEl.innerHTML = "";
+        historyEl.innerHTML = "";
+        getLatLon()
+    }
+}
+
+
+submitBtn.addEventListener("click", displayWeatherHandler);
+historyEl.addEventListener('click', displayHistoryHandler);
