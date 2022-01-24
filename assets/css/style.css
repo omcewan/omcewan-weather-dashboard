@@ -131,7 +131,8 @@ main {
   }
 
   .card {
-    margin-right: 10px;
+    margin: 0;
+    flex-basis: 100%;
   }
 }
 
@@ -139,6 +140,7 @@ main {
   main {
     height: 800px;
   }
+
 
   .five-day-forecast div {
     height: 300px;
@@ -148,10 +150,12 @@ main {
 
   .city-display {
     margin: 0;
+    flex-basis: 100%;
   }
 
   .card {
-    margin-right: 10px;
+    margin: 0;
+    flex-basis: 100%;
   }
 }
 
