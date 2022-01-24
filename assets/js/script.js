@@ -42,22 +42,26 @@ function loadPrevHistory() {
 function getLatLon() {
   var latLonApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity},US&limit=1&appid=f4d4536da514f2ce7b14e71927f09061`;
   fetch(latLonApiUrl).then((response) => {
-    response.json().then((data) => {
-      if (data.length === 0) {
-        currentCityEl.innerHTML =
-          "<h2> ERROR: This is not a valid city! Please enter a valid city!</h2>";
-        loadPrevHistory();
-      } else {
-        // console.log(data);
-        latitude = data[0].lat;
-        longitude = data[0].lon;
-        searchCity = data[0].name;
-        getWeatherInfo(latitude, longitude);
-        savePrevHistory(searchCity);
-        loadPrevHistory();
-      }
-    });
-  });
+    if (response.ok) {
+      response.json().then((data) => {
+        if (data.length === 0) {
+          currentCityEl.innerHTML =
+            "<h2> ERROR: This is not a valid city! Please enter a valid city!</h2>";
+          loadPrevHistory();
+        } else {
+          // console.log(data);
+          latitude = data[0].lat;
+          longitude = data[0].lon;
+          searchCity = data[0].name;
+          getWeatherInfo(latitude, longitude);
+          savePrevHistory(searchCity);
+          loadPrevHistory();
+        }
+      })
+    } else {
+      console.log("error")
+    }
+  })
 }
 
 function getWeatherInfo(latitude, longitude) {
